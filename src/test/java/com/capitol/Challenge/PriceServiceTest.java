@@ -1,4 +1,4 @@
-package com.capitol.Challeng;
+package com.capitol.Challenge;
 
 import static org.junit.jupiter.api.Assertions.*;
 
