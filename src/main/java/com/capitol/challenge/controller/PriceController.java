@@ -23,8 +23,7 @@ public class PriceController {
 
 	@Autowired
 	private IPriceService priceService;
-	
-	
+
 	@GetMapping("/listarJson")
 	public ResponseEntity<List<Price>> listarJson() {
 

@@ -3,7 +3,9 @@ package com.capitol.Challeng;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
-
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -16,12 +18,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.capitol.challenge.ChallengeApplication;
 import com.capitol.challenge.controller.PriceController;
 import com.capitol.challenge.model.Price;
 import com.capitol.challenge.model.request.PriceRequest;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = ChallengeApplication.class)
 @AutoConfigureTestDatabase
 class PriceControllerTest {
 
@@ -35,11 +38,10 @@ class PriceControllerTest {
 	private static final String ROW_RECOVERY_OK = "The ROW of price table  has been recovery OK";
 	
 	
+	
 
 	@Test
 	void testListarJson() {
-		
-		priceController = new PriceController();
 		
 		ResponseEntity<List<Price>> priceList = priceController.listarJson();
 		
@@ -50,13 +52,15 @@ class PriceControllerTest {
 
 	@Test
 	void testBuscarRegistroPersonalizado() {
-		
-		priceRequest = new PriceRequest(LocalDate.parse("2020-06-14T21:00:00"), 35455L, 1L);
+
+		LocalDateTime odt = LocalDateTime.parse ( 
+				"2020-06-14T21:00:00" , DateTimeFormatter.ofPattern ( "yyyy-MM-dd'T'HH:mm:ss" ) ) ;
+		priceRequest = new PriceRequest(odt, 35455L, 1L);
 		
 		ResponseEntity<Price> priceRow = priceController.buscarRegistroPersonalizado(priceRequest);
 		
 		assertNotNull(priceRow.getBody(), ROW_RECOVERY_OK);
-		assertEquals(priceRow.getStatusCode(), HttpStatus.OK.value());
+		assertEquals(priceRow.getStatusCode().is2xxSuccessful(), true);
 		assertEquals(priceRow.getBody().getProduct_id(), 35455L);
 		
 		

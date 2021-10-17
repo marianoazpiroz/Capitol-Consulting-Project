@@ -1,6 +1,7 @@
 package com.capitol.challenge.model.request;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -10,22 +11,22 @@ import lombok.AllArgsConstructor;
 public class PriceRequest {
 
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private LocalDate dateConsulting;
+	private LocalDateTime dateConsulting;
 	private Long productId ;
 	private Long brandId;
 	
-	public PriceRequest(LocalDate dateConsulting, Long productId, Long brandId) {
+	public PriceRequest(LocalDateTime dateConsulting, Long productId, Long brandId) {
 		super();
 		this.dateConsulting = dateConsulting;
 		this.productId = productId;
 		this.brandId = brandId;
 	}
 
-	public LocalDate getDateConsulting() {
+	public LocalDateTime getDateConsulting() {
 		return dateConsulting;
 	}
 
-	public void setDateConsulting(LocalDate dateConsulting) {
+	public void setDateConsulting(LocalDateTime dateConsulting) {
 		this.dateConsulting = dateConsulting;
 	}
 

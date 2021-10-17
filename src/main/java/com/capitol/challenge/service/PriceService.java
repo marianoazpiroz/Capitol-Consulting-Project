@@ -1,6 +1,7 @@
 package com.capitol.challenge.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class PriceService implements IPriceService{
 	}
 
 	@Override
-	public Price buscarRegistroPersonalizado(LocalDate date,  Long productId, Long brandId) {
+	public Price buscarRegistroPersonalizado(LocalDateTime date,  Long productId, Long brandId) {
 	
 		return priceDao.buscarRegistroPersonalizado(date, productId, brandId);
 	}
