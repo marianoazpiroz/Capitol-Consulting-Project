@@ -24,17 +24,17 @@ public class PriceController {
 	@Autowired
 	private IPriceService priceService;
 
-	@GetMapping("/listarJson")
-	public ResponseEntity<List<Price>> listarJson() {
+	@GetMapping("/getAll")
+	public ResponseEntity<List<Price>> getAll() {
 
-		return new ResponseEntity<List<Price>>(priceService.listar(), HttpStatus.OK);	
+		return new ResponseEntity<List<Price>>(priceService.getAll(), HttpStatus.OK);	
 	} 
 
 	
 	@RequestMapping(value ="/busqueda", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Price>  buscarRegistroPersonalizado(@RequestBody PriceRequest priceRequest) {
+	public ResponseEntity<Price>  searchPriceByProductBrandAndLocalDate(@RequestBody PriceRequest priceRequest) {
 		
-		return new ResponseEntity<Price>(priceService.buscarRegistroPersonalizado(priceRequest.getDateConsulting(), priceRequest.getProductId(), priceRequest.getBrandId()),HttpStatus.OK);
+		return new ResponseEntity<Price>(priceService.searchPriceByProductBrandAndLocalDate(priceRequest.getDateConsulting(), priceRequest.getProductId(), priceRequest.getBrandId()),HttpStatus.OK);
 		
 	}
 	

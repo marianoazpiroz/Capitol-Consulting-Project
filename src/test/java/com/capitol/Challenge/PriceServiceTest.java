@@ -6,9 +6,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,91 +37,35 @@ class PriceServiceTest {
 	
 	private static final String ROW_RECOVERY_OK = "The ROW of price table  has been recovery OK";
 	
-	private static final String FOUND_EXCEPTION = "The App found a exception when retrive SQL excecution";
 	
-	@BeforeEach
-	void setUp() throws Exception {
+
+	@ParameterizedTest
+	@CsvSource ({"2020-06-14T10:00:00, 35.50", 
+		"2020-06-14T16:00:00, 25.45",
+		"2020-06-14T21:00:00, 35.50",
+		"2020-06-15T10:00:00, 30.50",
+		"2020-06-16T21:00:00, 38.95"})
+	void test1(String date , Double expected ) {
+		
+		priceRequest = new PriceRequest(LocalDateTime.parse(date, formatter), 35455L, 1L);
+		
+		Price price = priceService.searchPriceByProductBrandAndLocalDate(
+				priceRequest.getDateConsulting(), priceRequest.getProductId() ,priceRequest.getBrandId() );
+		
+		assertNotNull(price, ROW_RECOVERY_OK);
+		assertEquals(expected, price.getPrice() );
 		
 	}
 
-	@Test
-	void test1() {
-		
-		priceRequest = new PriceRequest(LocalDateTime.parse("2020-06-14T10:00:00", formatter), 35455L, 1L);
-		
-		Price price = priceService.buscarRegistroPersonalizado(
-				priceRequest.getDateConsulting(), priceRequest.getBrandId(), priceRequest.getProductId());
-		
-		assertNotNull(price, ROW_RECOVERY_OK);
-		
-		System.out.println("test1: " + price.toString());
-		
-	}
 
-	@Test
-	void test2() {
-	
-		priceRequest = new PriceRequest(LocalDateTime.parse("2020-06-14T16:00:00" , formatter), 35455L, 1L);
-		
-		Price price = priceService.buscarRegistroPersonalizado(
-				priceRequest.getDateConsulting(), priceRequest.getBrandId(), priceRequest.getProductId());
-		
-		assertNotNull(price, ROW_RECOVERY_OK);
-		
-		System.out.println("test2: " + price.toString());
-		
-	}
-	
-	@Test
-	void test3() {
-	
-		priceRequest = new PriceRequest(LocalDateTime.parse("2020-06-14T21:00:00" , formatter), 35455L, 1L);
-		
-		Price price = priceService.buscarRegistroPersonalizado(
-				priceRequest.getDateConsulting(), priceRequest.getBrandId(), priceRequest.getProductId());
-		
-		assertNotNull(price, ROW_RECOVERY_OK);
-		
-		System.out.println("test3: " + price.toString());
-		
-	}
-	
-	@Test
-	void test4() {
-	
-		priceRequest = new PriceRequest(LocalDateTime.parse("2020-06-15T10:00:00" , formatter), 35455L, 1L);
-		
-		Price price = priceService.buscarRegistroPersonalizado(
-				priceRequest.getDateConsulting(), priceRequest.getBrandId(), priceRequest.getProductId());
-		
-		assertNotNull(price, ROW_RECOVERY_OK);
-		
-		System.out.println("test4: " + price.toString());
-		
-	}
-	
-	@Test
-	void test5() {
-	
-		priceRequest = new PriceRequest(LocalDateTime.parse("2020-06-16T21:00:00" , formatter), 35455L, 1L);
-		
-		Price price = priceService.buscarRegistroPersonalizado(
-				priceRequest.getDateConsulting(), priceRequest.getBrandId(), priceRequest.getProductId());
-		
-		assertNotNull(price, ROW_RECOVERY_OK);
-		
-		System.out.println("test5: " + price.toString());
-		
-	}
 	
 	@Test
 	void test6() {
 	
-		List<Price> priceList = priceService.listar();
+		List<Price> priceList = priceService.getAll();
 						
 		assertNotNull(priceList, LIST_RECOVERY_OK);
-		
-		System.out.println("test6: " + priceList.toString());
+		assertEquals(4, priceList.size());
 		
 	}
 }

@@ -13,11 +13,11 @@ public class Price implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	private Long id;
-	private Long brand_id;
-	private String start_date;
-	private String end_date;
-    private Integer price_list; 
-    private Long product_id;
+	private Long brandId;
+	private String startDate;
+	private String endDate;
+    private Integer priceList; 
+    private Long productId;
     private Integer priority;
     private Double price;
     private String curr;
@@ -34,44 +34,44 @@ public class Price implements Serializable {
 		this.id = id;
 	}
 
-	public Long getBrand_id() {
-		return brand_id;
+	public Long getBrandId() {
+		return brandId;
 	}
 
-	public void setBrand_id(Long brand_id) {
-		this.brand_id = brand_id;
+	public void setBrandId(Long brandId) {
+		this.brandId = brandId;
 	}
 
-	public String getStart_date() {
-		return start_date;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setStart_date(String start_date) {
-		this.start_date = start_date;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
-	public String getEnd_date() {
-		return end_date;
+	public String getEndDate() {
+		return endDate;
 	}
 
-	public void setEnd_date(String end_date) {
-		this.end_date = end_date;
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
-	public Integer getPrice_list() {
-		return price_list;
+	public Integer getPriceList() {
+		return priceList;
 	}
 
-	public void setPrice_list(Integer price_list) {
-		this.price_list = price_list;
+	public void setPriceList(Integer priceList) {
+		this.priceList = priceList;
 	}
 
-	public Long getProduct_id() {
-		return product_id;
+	public Long getProductId() {
+		return productId;
 	}
 
-	public void setProduct_id(Long product_id) {
-		this.product_id = product_id;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	public Integer getPriority() {
@@ -100,10 +100,12 @@ public class Price implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Price [id=" + id + ", brand_id=" + brand_id + ", start_date=" + start_date + ", end_date=" + end_date
-				+ ", price_list=" + price_list + ", product_id=" + product_id + ", priority=" + priority + ", price="
+		return "Price [id=" + id + ", brandId=" + brandId + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", priceList=" + priceList + ", productId=" + productId + ", priority=" + priority + ", price="
 				+ price + ", curr=" + curr + "]";
 	}
+
+
     
 	
 }

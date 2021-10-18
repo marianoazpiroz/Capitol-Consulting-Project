@@ -7,8 +7,8 @@ import com.capitol.challenge.model.Price;
 
 public interface IPriceService {
 	
-	public List<Price> listar();
+	public List<Price> getAll();
 	
-	public Price  buscarRegistroPersonalizado(LocalDateTime date, Long productId, Long brandId);
+	public Price  searchPriceByProductBrandAndLocalDate(LocalDateTime date, Long productId, Long brandId);
 	
 }

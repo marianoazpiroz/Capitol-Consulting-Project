@@ -1,7 +1,7 @@
 package com.capitol.challenge.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +17,19 @@ public class PriceService implements IPriceService{
 	private IPrice priceDao;
 	
 	@Override
-	public List<Price> listar() {
+	public List<Price> getAll() {
 		
 		return priceDao.findAll();
 	}
 
 	@Override
-	public Price buscarRegistroPersonalizado(LocalDateTime date,  Long productId, Long brandId) {
+	public Price searchPriceByProductBrandAndLocalDate(LocalDateTime date,  Long productId, Long brandId) {
 	
-		return priceDao.buscarRegistroPersonalizado(date, productId, brandId);
+		
+		 List<Price> buscarRegistroPersonalizado = priceDao.searchPriceByProductBrandAndLocalDate(date, productId, brandId);
+		 Price price = buscarRegistroPersonalizado.stream().max(Comparator.comparing(Price::getPriority)).get();
+		 
+		 return price;
 	}
 
 
